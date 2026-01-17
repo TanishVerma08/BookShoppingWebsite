@@ -1,0 +1,53 @@
+﻿@model IEnumerable<EcommProject.Models.OrderHeader>
+<div class="row">
+    <div class="col-9">
+        <h2 class="text-primary">Order List</h2>
+    </div>
+    
+</div>
+<div class="container rounded border p-2 m-2">
+    <table id="tblData" class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Order Date</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Order Amount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.OrderDate</td>
+                    <td>@item.ApplicationUser.Name</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.OrderTotal</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success">View Details</a>
+                    </td>
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+   
+</div>
+<div class="container row">
+    <div class="col-4">
+        <h4>Order Total : @Model.Sum(item => item.OrderTotal).ToString()</h4>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function(){
+            $('#tblData').DataTable({
+                 "lengthMenu": [[5, 10, 15, 20], [5, 10, 15, 20]],
+            });
+        })
+    </script>
+}

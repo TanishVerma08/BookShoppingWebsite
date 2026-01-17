@@ -1,0 +1,34 @@
+﻿@page
+@model Verify2faCode
+@{
+    ViewData["Title"] = "Two-factor Authentication";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+<p>Your login is protected with an verifaction code. Enter your verification code below.</p>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
+            <input asp-for="PhoneNumber" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <input asp-for="User" type="hidden" />
+            <div class="form-floating mb-3">
+                <input asp-for="Code" class="form-control" autocomplete="off" placeholder="Enter your Verification Code." />
+                <label asp-for="Code" class="form-label"></label>
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div>
+                <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+            </div>
+        </form>
+    </div>
+</div>
+<p>
+    Don't have access to your device? You can
+    <a id="recovery-code-login" asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl">log in with a recovery code</a>.
+</p>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

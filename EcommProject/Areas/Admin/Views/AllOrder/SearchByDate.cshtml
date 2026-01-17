@@ -1,0 +1,57 @@
+﻿@model IEnumerable<EcommProject.Models.OrderHeader>
+@{
+    ViewData["Title"] = "SearchByDate";
+}
+
+<h2 class="p-2 m-2">By Date Search</h2>
+<form method="get" asp-action="SearchByDate">
+    <div class="container row p-2 m-2">
+        <div class="col-3">
+            <label>From Date:</label>
+            <input type="date" name="fromDate" required />
+           
+       
+         
+        </div>
+        <div class="col-3">
+            <label>To Date:</label>
+            <input type="date" name="toDate" required />
+        </div>
+        <div class="col-3">
+            <button type="submit" class="form-control btn btn-success">Search</button>
+        </div>
+    </div>
+</form>
+@if(Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped table-active">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Order Date</th>
+                <th>Order Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.OrderDate</td>
+                    <td>@item.OrderTotal</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+   <div class="container p-2 m-2">
+        <h2 class="text-danger">
+            No Data Found !!!   
+        </h2>
+   </div>
+}
+
+
+

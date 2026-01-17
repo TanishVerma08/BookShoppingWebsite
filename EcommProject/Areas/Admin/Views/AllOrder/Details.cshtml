@@ -1,0 +1,51 @@
+﻿@model IEnumerable<EcommProject.Models.OrderDetail>
+<div class="row">
+    <div class="col-9">
+        <h2 class="text-primary">Order Details</h2>
+    </div>
+    <div class="col-3">
+        <a asp-action="Index" class="btn btn-success form-control">Back To List</a>
+    </div>
+</div>
+<div class="container rounded border p-2 m-2">
+    <table id="tblData" class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Product Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductId</td>
+                    <td>@item.Product.Title</td>
+                    <td>@item.Product.Author</td>
+                    <td>@item.Product.Price</td>
+                    <td>@item.Count</td>
+                    <td>@(item.Product.Price*item.Count)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="container row">
+    <div class="col-4">
+        <h4>Order Total : @Model.Sum(item => item.Product.Price*item.Count).ToString()</h4>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function(){
+            $('#tblData').DataTable({
+                 "lengthMenu": [[5, 10, 15, 20], [5, 10, 15, 20]],
+            });
+        })
+    </script>
+}
